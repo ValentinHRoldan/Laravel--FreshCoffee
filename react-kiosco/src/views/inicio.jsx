@@ -12,6 +12,7 @@ export default function inicio() {
         productos.map(producto => (
           <Producto 
             key={producto.imagen}
+            producto={producto}
           />
         ))
         }
