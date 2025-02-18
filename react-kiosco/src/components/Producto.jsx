@@ -1,8 +1,11 @@
 import React from 'react'
 import { formatearDinero } from '../helpers';
+import useKiosco from '../hooks/useKiosco';
 
 export default function Producto({producto}) {
   const {nombre, imagen, precio} = producto;
+  const { handleClickModal } = useKiosco();
+
   return (
     <div className='border p-3 shadow bg-white'>
       <img src={`/img/${imagen}.jpg`} alt={`Imagen ${nombre}`} className='w-full' />
@@ -12,7 +15,8 @@ export default function Producto({producto}) {
       </div>
       <button
         type='button'
-        className='bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold'>
+        className='bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold'
+        onClick={handleClickModal}>
         Agregar    
       </button>
     </div>

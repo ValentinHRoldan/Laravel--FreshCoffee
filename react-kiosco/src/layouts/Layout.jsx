@@ -1,7 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Sidebar from '../components/sidebar'
+import Sidebar from '../components/Sidebar'
 import Resumen from '../components/Resumen'
+import Modal from 'react-modal'
 
 export default function layout() {
   return (
