@@ -3,8 +3,23 @@ import { Outlet } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import Resumen from '../components/Resumen'
 import Modal from 'react-modal'
+import useKiosco from '../hooks/useKiosco'
+import ModalProducto from '../components/ModalProducto'
 
 export default function layout() {
+
+  const { modal, handleClickModal } = useKiosco();
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+  Modal.setAppElement("#root");
   return (
     <>
       <div className='md:flex'>
@@ -14,6 +29,10 @@ export default function layout() {
         </main>
         <Resumen/>
       </div>
+
+      <Modal isOpen={modal} style={customStyles}>
+        <ModalProducto handleClickModal={handleClickModal}/>
+      </Modal>
     </>
   )
 }

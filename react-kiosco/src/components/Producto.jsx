@@ -4,7 +4,7 @@ import useKiosco from '../hooks/useKiosco';
 
 export default function Producto({producto}) {
   const {nombre, imagen, precio} = producto;
-  const { handleClickModal } = useKiosco();
+  const { handleClickModal, handleSetProducto } = useKiosco();
 
   return (
     <div className='border p-3 shadow bg-white'>
@@ -16,7 +16,10 @@ export default function Producto({producto}) {
       <button
         type='button'
         className='bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold'
-        onClick={handleClickModal}>
+        onClick={()=>{
+          handleClickModal();
+          handleSetProducto(producto);
+        }}>
         Agregar    
       </button>
     </div>
