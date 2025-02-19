@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { categorias } from '../data/categorias'
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const KioscoContext = createContext();
 
@@ -10,6 +11,7 @@ const KioscoProvider = ({children})=>{
     const [categoriaActual, setCategoriaActual] = useState(categorias[0]);
     const [modal, setModal] = useState(false);
     const [producto, setProducto] = useState({});
+    const [pedido, setPedido] = useState([]);
 
     const handleClickCategoria = (idCategoria)=>{
         const categoria_ = categorias.filter(categoria => categoria.id === idCategoria)[0];
@@ -23,6 +25,24 @@ const KioscoProvider = ({children})=>{
     const handleSetProducto = (producto)=>{
         setProducto(producto);
     }
+
+    const handleAgregarPedido = ({categoria_id, imagen, ...producto})=>{
+        
+        if(pedido.some(pedidoState => pedidoState.id === producto.id)){
+            const pedidoActualizado = pedido.map(pedidoState => pedidoState.id === producto.id ? producto : pedidoState)
+            setPedido(pedidoActualizado);
+            toast.success('Guardado Correctamente');
+        }
+        else{
+            setPedido([...pedido, producto])
+            toast.success('Agregado al pedido');
+        }
+    }
+
+    const handleEditarCantidad = id =>{
+
+    }
+
     return (
         <KioscoContext.Provider value={{
             categorias:categoria,
@@ -31,7 +51,10 @@ const KioscoProvider = ({children})=>{
             modal,
             handleClickModal,
             producto,
-            handleSetProducto
+            handleSetProducto,
+            pedido,
+            handleAgregarPedido,
+            handleEditarCantidad
         }}>
             {children}
         </KioscoContext.Provider>

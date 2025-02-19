@@ -5,6 +5,8 @@ import Resumen from '../components/Resumen'
 import Modal from 'react-modal'
 import useKiosco from '../hooks/useKiosco'
 import ModalProducto from '../components/ModalProducto'
+import {ToastContainer} from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
 export default function layout() {
 
@@ -33,6 +35,7 @@ export default function layout() {
       <Modal isOpen={modal} style={customStyles}>
         <ModalProducto handleClickModal={handleClickModal}/>
       </Modal>
+      <ToastContainer/>
     </>
   )
 }
