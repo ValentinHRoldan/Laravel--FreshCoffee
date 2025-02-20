@@ -8,4 +8,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/categorias', [CategoriaController::class, 'index']);
+Route::apiResource('/categorias', CategoriaController::class);
