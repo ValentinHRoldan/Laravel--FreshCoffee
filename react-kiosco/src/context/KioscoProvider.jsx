@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { categorias } from '../data/categorias'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const KioscoContext = createContext();
@@ -12,6 +12,13 @@ const KioscoProvider = ({children})=>{
     const [modal, setModal] = useState(false);
     const [producto, setProducto] = useState({});
     const [pedido, setPedido] = useState([]);
+    const [total, setTotal] = useState(0);
+
+    useEffect(()=>{
+        const nuevoTotal = pedido.reduce((total, producto_) => total + (producto_.precio * producto_.cantidad), 0);
+        setTotal(nuevoTotal);
+    }, [pedido])
+
 
     const handleClickCategoria = (idCategoria)=>{
         const categoria_ = categorias.filter(categoria => categoria.id === idCategoria)[0];
@@ -26,7 +33,7 @@ const KioscoProvider = ({children})=>{
         setProducto(producto);
     }
 
-    const handleAgregarPedido = ({categoria_id, imagen, ...producto})=>{
+    const handleAgregarPedido = ({categoria_id, ...producto})=>{
         
         if(pedido.some(pedidoState => pedidoState.id === producto.id)){
             const pedidoActualizado = pedido.map(pedidoState => pedidoState.id === producto.id ? producto : pedidoState)
@@ -40,9 +47,15 @@ const KioscoProvider = ({children})=>{
     }
 
     const handleEditarCantidad = id =>{
-
+        const productoActualizar = pedido.filter(producto => producto.id === id)[0];
+        setProducto(productoActualizar);
+        setModal(!modal);
     }
 
+    const handleEliminarProducto = id =>{
+        const pedidoActualizar = pedido.filter(producto => producto.id !== id);
+        setPedido(pedidoActualizar);        
+    }
     return (
         <KioscoContext.Provider value={{
             categorias:categoria,
@@ -54,7 +67,9 @@ const KioscoProvider = ({children})=>{
             handleSetProducto,
             pedido,
             handleAgregarPedido,
-            handleEditarCantidad
+            handleEditarCantidad,
+            handleEliminarProducto,
+            total,
         }}>
             {children}
         </KioscoContext.Provider>

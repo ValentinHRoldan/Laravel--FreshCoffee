@@ -1,8 +1,12 @@
 import React from 'react'
 import { formatearDinero } from '../helpers';
+import useKiosco from '../hooks/useKiosco';
+import { useEffect } from 'react';
 
 export default function ResumenProducto({producto}) {
     const {id, nombre, precio, cantidad} = producto
+    const { handleEditarCantidad, handleEliminarProducto } = useKiosco();
+
     return (
         <div className="shadow space-y-1 p-4 bg-white">
           <div className="space-y-2">
@@ -19,6 +23,7 @@ export default function ResumenProducto({producto}) {
           <div className="flex justify-between gap-2 pb-4">
             <button
               type="button"
+              onClick={()=>handleEditarCantidad(id)}
               className="bg-sky-700 p-2 text-white rounded-md font-bold uppercase shadow-md text-center"
             >
               <svg
@@ -32,6 +37,7 @@ export default function ResumenProducto({producto}) {
             </button>
             <button
               type="button"
+              onClick={()=>handleEliminarProducto(id)}
               className="bg-red-700 p-2 text-white rounded-md font-bold uppercase shadow-md text-center"
             >
               <svg
