@@ -1,0 +1,8 @@
+en la carpeta raiz de REACT crear el archivo .env y añadir
+VITE_API_URL=http://127.0.0.1:8000/
+
+esto es para que el frontend se pueda comunicar con el backend
+permitiendo que se puedan solicitar respuestas
+por medio de axios, fetch, ajax etc
+debido a que react funciona en el puerto 5713 y laravel
+en el puerto 8000 (por defecto)

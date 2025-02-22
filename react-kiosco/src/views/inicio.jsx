@@ -5,13 +5,15 @@ import useKiosco from '../hooks/useKiosco'
 import useSWR from 'swr'
 import clienteAxios from '../../config/axios'
 
+
 export default function inicio() {
 
   const fetcher = ()=> clienteAxios('api/productos').then(data => data.data)
-
+  
   const {data, error, isLoading} = useSWR('/api/productos', fetcher, {
     refreshInterval: 5000
   });
+  console.log(error);
   const { categoriaActual } = useKiosco()
   if(isLoading) return 'Cargando...';
   const productos = data.data.filter(producto => producto.categoria_id === categoriaActual.id);
