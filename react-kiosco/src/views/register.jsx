@@ -22,8 +22,8 @@ export default function register() {
       password_confirmation: passwordConfirmationRef.current.value,
     }
     try {
-      const res = await clienteAxios.post('api/registro', datos);
-      console.log(res);
+      const { data }= await clienteAxios.post('api/registro', datos);
+      console.log(data.token);
     } catch (error) {
       console.log(error);
       setErrores(Object.values(error.response.data.errors));
