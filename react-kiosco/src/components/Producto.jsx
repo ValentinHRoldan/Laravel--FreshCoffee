@@ -11,7 +11,7 @@ export default function Producto({producto}) {
       <img src={`/img/${imagen}.jpg`} alt={`Imagen ${nombre}`} className='w-full' />
       <div>
         <h3 className='text-2xl font-bold'>{nombre}</h3>
-        <p className='mt-5 font-black text-4xl text-amber-500'>{formatearDinero(precio)}</p>
+        <p className='mt-5 font-black text-4xl text-amber-500'>{`$${formatearDinero(precio)}`}</p>
       </div>
       <button
         type='button'

@@ -22,9 +22,10 @@ const KioscoProvider = ({children})=>{
 
     const obtenerCategorias = async ()=>{
         try{
+            
             const {data} = await clienteAxios('/api/categorias');
             setCategoria(data.data);
-            // setCategoriaActual(data.data[0]);
+            setCategoriaActual(data.data[0]);
         }
         catch(error){
             console.log(error);
@@ -33,7 +34,7 @@ const KioscoProvider = ({children})=>{
 
     useEffect(()=>{
         obtenerCategorias();
-    })
+    }, [])
 
     const handleClickCategoria = (idCategoria)=>{
         const categoria_ = categorias.filter(categoria => categoria.id === idCategoria)[0];
@@ -71,6 +72,7 @@ const KioscoProvider = ({children})=>{
         const pedidoActualizar = pedido.filter(producto => producto.id !== id);
         setPedido(pedidoActualizar);        
     }
+    
     return (
         <KioscoContext.Provider value={{
             categorias:categoria,

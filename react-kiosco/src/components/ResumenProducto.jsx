@@ -13,7 +13,7 @@ export default function ResumenProducto({producto}) {
             <p className="text-xl font-bold">{nombre}</p>
             <p className="text-lg font-bold ">Cantidad: {cantidad}</p>
             <p className="text-lg font-bold text-amber-500">
-              Precio: {formatearDinero(precio)}
+              Precio: {`$${formatearDinero(precio)}`}
             </p>
             <p className="text-lg text-gray-700">
               Subtotal: {formatearDinero(precio * cantidad)} 
