@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use App\Models\User;
-use App\Http\Requests\RegistroRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RegistroRequest;
 
 class AuthController extends Controller
 {
@@ -42,7 +43,11 @@ class AuthController extends Controller
         ];
     }
 
-    public function logout($request){
-
+    public function logout(Request $request){
+        $user = $request->user();
+        $user->currentAccessToken()->delete();
+        return [
+            'user' => null,
+        ];
     }
 }
