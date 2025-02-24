@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\PedidoProducto;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
@@ -20,7 +23,29 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pedido = new Pedido;
+        $pedido->user_id = Auth::user()->id;
+        $pedido->total = $request->total;
+        $pedido->save();
+        //obtener id del pedido
+        $id = $pedido->id;
+        //obtener los productos
+        $productos = $request->productos;
+        //formatear arreglo
+        $pedido_producto = [];
+        foreach($productos as $producto){
+            $pedido_producto[] = [
+                'pedido_id' => $id,
+                'producto_id' => $producto['id'],
+                'cantidad' => $producto['cantidad'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        }
+        PedidoProducto::insert($pedido_producto);
+        return [
+            'message' => 'Pedido realizado con exito! en unos minutos estará listo',
+        ];
     }
 
     /**

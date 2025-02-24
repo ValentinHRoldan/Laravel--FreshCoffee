@@ -73,6 +73,34 @@ const KioscoProvider = ({children})=>{
         setPedido(pedidoActualizar);        
     }
     
+    const handleSubmitNuevaOrden = async ()=>{
+        const token = localStorage.getItem('AUTH.TOKEN');
+        try {
+            const {data} = await clienteAxios.post('/api/pedidos', 
+                {
+                    total,
+                    productos: pedido.map(producto => {
+                        return{
+                            id: producto.id,
+                            cantidad: producto.cantidad,
+                        }
+                    }),
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+            toast.success(data.message);
+            setTimeout(() => {
+                setPedido([]);
+            }, 1000);
+        } catch (error) {
+            
+        }
+    }
+
     return (
         <KioscoContext.Provider value={{
             categorias:categoria,
@@ -87,6 +115,7 @@ const KioscoProvider = ({children})=>{
             handleEditarCantidad,
             handleEliminarProducto,
             total,
+            handleSubmitNuevaOrden
         }}>
             {children}
         </KioscoContext.Provider>
