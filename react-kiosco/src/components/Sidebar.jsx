@@ -23,7 +23,7 @@ export default function sidebar() {
       <div className='my-5 px-3'>
         <button type='button' className='text-center bg-red-500 w-full p-3 font-bold text-white truncate hover:bg-red-800'
         onClick={logout}>
-        Cancelar pedido
+        Cerrar Sesion
         </button>
       </div>
     </aside>
