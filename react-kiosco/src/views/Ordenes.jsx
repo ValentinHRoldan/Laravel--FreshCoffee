@@ -1,9 +1,11 @@
 import React from 'react'
 import clienteAxios from '../../config/axios';
 import useSWR from 'swr';
+import useKiosco from '../hooks/useKiosco';
 
 export default function Ordenes() {
     const token = localStorage.getItem('AUTH.TOKEN');
+    const { handleClickCompletarPedido } = useKiosco();
     const fetcher = () => clienteAxios('/api/pedidos', {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -45,7 +47,8 @@ export default function Ordenes() {
                             <span className='font-normal text-slate-700'>${pedido.total}</span>
                         </p>
                         <button type="button" 
-                        className='bg-indigo-600 hover:bg-indigo-800 px-5 py-3 rounded uppercase font-bold text-white text-center w-full cursor-pointer mt-5'>
+                        className='bg-indigo-600 hover:bg-indigo-800 px-5 py-3 rounded uppercase font-bold text-white text-center w-full cursor-pointer mt-5'
+                        onClick={() => handleClickCompletarPedido(pedido.id)}>
                             Completar
                         </button>
                     </div>

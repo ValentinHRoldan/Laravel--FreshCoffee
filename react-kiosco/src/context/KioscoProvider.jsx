@@ -101,6 +101,20 @@ const KioscoProvider = ({children})=>{
         }
     }
 
+    const handleClickCompletarPedido = async id =>{
+        const token = localStorage.getItem('AUTH.TOKEN');
+        try {
+            await clienteAxios.put(`/api/pedidos/${id}`, null, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <KioscoContext.Provider value={{
             categorias:categoria,
@@ -115,7 +129,8 @@ const KioscoProvider = ({children})=>{
             handleEditarCantidad,
             handleEliminarProducto,
             total,
-            handleSubmitNuevaOrden
+            handleSubmitNuevaOrden,
+            handleClickCompletarPedido
         }}>
             {children}
         </KioscoContext.Provider>
