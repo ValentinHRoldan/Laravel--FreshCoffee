@@ -7,8 +7,12 @@ import clienteAxios from '../../config/axios'
 
 
 export default function inicio() {
-
-  const fetcher = ()=> clienteAxios('api/productos').then(data => data.data)
+  const token = localStorage.getItem('AUTH.TOKEN');
+  const fetcher = ()=> clienteAxios('api/productos', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then(data => data.data)
   
   const {data, error, isLoading} = useSWR('/api/productos', fetcher, {
     refreshInterval: 5000
@@ -27,6 +31,7 @@ export default function inicio() {
           <Producto 
             key={producto.imagen}
             producto={producto}
+            botonAgregar={true}
           />
         ))
         }
